@@ -1,11 +1,50 @@
 <!DOCTYPE html>
-<html>
+
+<html ng-app="blocitoff">
+
 <head lang="en">
+    <title>Bloc It Off</title>
     <meta charset="UTF-8">
-    <title>Bloc Base Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+		  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,800,600,700,300">    
     <link rel="stylesheet" href="/styles/main.css">
 </head>
+
 <body>
+    <ui-view></ui-view>
+        
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>s
+    
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/js/client/2.0.5/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.3.0/angularfire.min.js"></script>
+    
+    <!-- ui-router -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+    
+    <!-- Angular UI -->
+    <script src="/scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDnSR5gCp9pIDNqhotG90gpjGY3KybpATw",
+        authDomain: "blocitoff-63c0d.firebaseapp.com",
+        databaseURL: "https://blocitoff-63c0d.firebaseio.com",
+        storageBucket: "blocitoff-63c0d.appspot.com",
+        messagingSenderId: "263837781379"
+      };
+      firebase.initializeApp(config); 
+    </script> 
+    
+    <!-- Application Files -->
     <script src="/scripts/app.js"></script>
+    <script src="/scripts/controllers/LandingCtrl.js"></script>
 </body>
+
 </html>

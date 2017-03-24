@@ -1,11 +1,7 @@
 {
-  "name": "bloc-frontend-project-starter",
-  "version": "0.0.3",
-  "description": "Starter project for the Bloc Frontend Web Development",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bloc/bloc-frontend-project-starter"
-  },
+  "name": "blocitoff",
+  "version": "1.0.0",
+  "description": "Blocitoff uses the Firebase API and AngularJS to create tasks with an expiration date.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -13,11 +9,13 @@
   "author": "Bloc Inc",
   "license": "ISC",
   "dependencies": {
+    "angularfire": "^2.3.0",
     "hapi": "~7.5.0",
     "path": "^0.4.9"
   },
   "devDependencies": {
     "connect-modrewrite": "^0.7.9",
-    "es5-shim": "^4.0.1"
+    "es5-shim": "^4.0.1",
+    "firebase": "*"
   }
 }
