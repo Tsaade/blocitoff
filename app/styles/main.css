@@ -13,7 +13,7 @@ body {
     background: linear-gradient(to right, rgba(153, 153, 255,.5), rgba(153, 153, 255,1)); 
 }
 
-#list-head, #title, #description {
+#list-head, #title, .description {
     text-align: center;
 }
 
@@ -26,24 +26,28 @@ body {
 #list-footer {
     background: linear-gradient(to left, rgba(0, 0, 0,.5), rgba(0, 0, 0,1));
     padding: 10px 10px 10px 10px;
-    height: auto;
+    height: 130px;
 }
 
 #add-title {
     color: white;
 }
 
-#high {
+.priority {
+    display: inline;
     color: white;
+    padding: 4px;
 }
 
 #task-text {
-    width: 475px;
+    width: 700px;
     margin: 10px;
     font-size: 14px;
     margin-top: 0px;
 }
 
-#add-task {
-    width: 100px;
+.task-buttons {
+    width: 150px;
+    float: right;
+    margin: 5px;
 }

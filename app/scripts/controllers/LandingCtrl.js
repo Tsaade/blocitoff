@@ -2,12 +2,22 @@
     'use strict';
 
     function LandingCtrl ($scope, $firebaseArray) {
-        console.log('Loading controller...');
-        
-        var ref = new Firebase('https://blocitoff-63c0d.firebaseio.com/');
-        
+        var ref = firebase.database().ref().child('tasks');        
         $scope.tasks = $firebaseArray(ref);
         
+        $scope.addTask = function () {
+            $scope.tasks.$add({
+                task_text: $scope.task_text,
+                priority: $scope.priority
+            }).then(function(ref) {
+                var id = ref.key;
+                console.log('Added New Task ' + id);
+                
+                $scope.task_text = '';
+                $scope.priority = '';
+                
+            });
+        };
     }
     
     angular
