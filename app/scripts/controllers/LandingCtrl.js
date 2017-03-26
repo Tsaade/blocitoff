@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function LandingCtrl ($scope, $firebaseArray) {
+    function LandingCtrl($scope, $firebaseArray) {
         var activeRef = firebase.database().ref().child('active_tasks');
         var inactiveRef = firebase.database().ref().child('inactive_tasks');
         
@@ -38,7 +38,20 @@
                     }
                 })
             });
-        };    
+        };
+        
+        $scope.currentTaskList = true;
+        $scope.historyTaskList = false;
+        
+        $scope.showHistory = function() {
+            $scope.currentTaskList = false;
+            $scope.historyTaskList = true;
+        };
+        
+        $scope.showCurrentTasks = function() {
+            $scope.currentTaskList = true;
+            $scope.historyTaskList = false;            
+        };        
     }
     
     angular

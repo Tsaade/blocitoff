@@ -55,3 +55,10 @@ h3 {
     float: right;
     margin: 5px;
 }
+
+.task-buttons-disabled {
+    color: lightgray;
+    width: 150px;
+    float: right;
+    margin: 5px;
+}

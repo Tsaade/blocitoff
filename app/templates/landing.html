@@ -5,7 +5,7 @@
         <p class="description">Tasks will expire automatically if not acted upon after 7 days.</p>
     </div>
     
-    <div id="list-body">  
+    <div id="list-body" ng-show="currentTaskList">  
         <h3> Current Tasks</h3>
         <table class="table table-striped">
             <thead>
@@ -27,8 +27,8 @@
             </tbody>
         </table>
     </div>
-        
-    <div id="list-footer">
+    
+    <div id="list-footer" ng-show="currentTaskList">
         <p id="add-title">Add New Task: </p>
         <div>
             <input id="task-text" type="text" ng-model="task_text"><br>
@@ -36,8 +36,45 @@
             <input type="radio" name="priority" value="high" ng-model="priority"><p class="priority"> High</p>
             <input type="radio" name="priority" value="normal" ng-model="priority"><p class="priority"> Normal</p>
             <input type="radio" name="priority" value="low" ng-model="priority"><p class="priority"> Low</p><br>
-            <input class="task-buttons" type="button" value="Show Task History" ng-click="showHistory">
+            <input class="task-buttons" type="button" value="Show Task History" ng-click="showHistory()">
             <input class="task-buttons" type="button" value="Add Task" ng-click="addTask()">
         </div>
     </div>
+    
+     <div id="list-body" ng-show="historyTaskList">  
+        <h3> Task History</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="450">Task</th>
+                    <th width="50">Priority</th>
+                    <th width="150">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in active_tasks">
+                    <td width="400">{{ task.task_text }}</td>
+                    <td width="50">{{ task.priority }}</td>
+                    <td>
+                        <input type="checkbox" ng-click="reactivateTask(task)">Comp.
+                        <input type="checkbox" ng-click="reactivateTask(task)" >Exp.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="list-footer" ng-show="historyTaskList">
+        <p id="add-title">Add New Task: </p>
+        <div>
+            <input disabled id="task-text" type="text" ng-model="task_text"><br>
+            <p class="priority"> Add Priority: </p>
+            <input disabled type="radio" name="priority" value="high" ng-model="priority"><p class="priority"> High</p>
+            <input disabled type="radio" name="priority" value="normal" ng-model="priority"><p class="priority"> Normal</p>
+            <input disabled type="radio" name="priority" value="low" ng-model="priority"><p class="priority"> Low</p><br>
+            <input class="task-buttons" type="button" value="Show Current Tasks" ng-click="showCurrentTasks()">
+            <input disabled class="task-buttons-disabled" type="button" value="Add Task" >
+        </div>
+    </div>
+    
 </div>

@@ -11,6 +11,11 @@
                 url: '/',
                 controller: 'LandingCtrl as landing',
                 templateUrl: '/templates/landing.html'
+            })
+            .state('history', {
+                url: '/history',
+                controller: 'HistoryCtrl as history',
+                templateUrl: '/templates/history.html'
             });
     }
 
