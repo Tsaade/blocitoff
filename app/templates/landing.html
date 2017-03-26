@@ -1,38 +1,41 @@
-<div class="todo-list">
+<div class="todo-list" data-ng-init="isTaskExpired()">
     <div id="list-head">
         <h1 id="title">Bloc It Off</h1>
         <p class="description">Blocitoff uses the Firebase API and AngularJS to create tasks with an expiration date.</p>
-        <p class="description">Tasks will expire if not acted upon after 7 days.</p>
+        <p class="description">Tasks will expire automatically if not acted upon after 7 days.</p>
     </div>
     
     <div id="list-body">  
-        <h3> Current Taks</h3>
+        <h3> Current Tasks</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Task</th>
-                    <th>Priority</th>
-                    <th></th>
+                    <th width="450">Task</th>
+                    <th width="50">Priority</th>
+                    <th width="150">Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in tasks">
-                    <td>{{ task.task_text }}</td>
-                    <td>{{ task.priority }}</td>
-                    <!-- I need to add the icons here -->
+                <tr ng-repeat="task in active_tasks">
+                    <td width="400">{{ task.task_text }}</td>
+                    <td width="50">{{ task.priority }}</td>
+                    <td>
+                        <input type="checkbox" ng-click="completedTask(task)">Comp.
+                        <input type="button" ng-click="deleteTask(task)" value="Delete">
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
         
     <div id="list-footer">
-        <p id="add-title">Add New Task</p>
+        <p id="add-title">Add New Task: </p>
         <div>
             <input id="task-text" type="text" ng-model="task_text"><br>
             <p class="priority"> Add Priority: </p>
-            <input id="high" type="radio" name="priority" value="high" ng-model="priority"><p class="priority"> High</p>
-            <input id="norm" type="radio" name="priority" value="normal" ng-model="priority"><p class="priority"> Normal</p>
-            <input id="low" type="radio" name="priority" value="low" ng-model="priority"><p class="priority"> Low</p><br>
+            <input type="radio" name="priority" value="high" ng-model="priority"><p class="priority"> High</p>
+            <input type="radio" name="priority" value="normal" ng-model="priority"><p class="priority"> Normal</p>
+            <input type="radio" name="priority" value="low" ng-model="priority"><p class="priority"> Low</p><br>
             <input class="task-buttons" type="button" value="Show Task History" ng-click="showHistory">
             <input class="task-buttons" type="button" value="Add Task" ng-click="addTask()">
         </div>

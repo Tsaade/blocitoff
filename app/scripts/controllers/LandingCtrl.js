@@ -2,22 +2,43 @@
     'use strict';
 
     function LandingCtrl ($scope, $firebaseArray) {
-        var ref = firebase.database().ref().child('tasks');        
-        $scope.tasks = $firebaseArray(ref);
+        var activeRef = firebase.database().ref().child('active_tasks');
+        var inactiveRef = firebase.database().ref().child('inactive_tasks');
+        
+        $scope.active_tasks = $firebaseArray(activeRef);
+        $scope.inactive_tasks = $firebaseArray(inactiveRef);
         
         $scope.addTask = function () {
-            $scope.tasks.$add({
+            $scope.active_tasks.$add({
                 task_text: $scope.task_text,
+                date: (new Date()).getDate(),
                 priority: $scope.priority
-            }).then(function(ref) {
-                var id = ref.key;
-                console.log('Added New Task ' + id);
+            }).then(function(activeRef) {
                 
                 $scope.task_text = '';
                 $scope.priority = '';
-                
             });
         };
+                
+        $scope.completedTask = function(task) {            
+            $scope.inactive_tasks.$add(task);
+            $scope.active_tasks.$remove(task);
+        };
+        
+        $scope.deleteTask = function(task) {
+            $scope.active_tasks.$remove(task);
+        };
+
+        $scope.isTaskExpired = function() {
+            $scope.active_tasks.$loaded().then(function(){
+                angular.forEach($scope.active_tasks, function(task) {
+                    if (task.date === task.date + 1) {
+                        $scope.inactive_tasks.$add(task);
+                        $scope.active_tasks.$remove(task);
+                    }
+                })
+            });
+        };    
     }
     
     angular

@@ -13,6 +13,10 @@ body {
     background: linear-gradient(to right, rgba(153, 153, 255,.5), rgba(153, 153, 255,1)); 
 }
 
+h3 {
+    padding-left: 10px;
+}
+
 #list-head, #title, .description {
     text-align: center;
 }
