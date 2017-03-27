@@ -11,7 +11,8 @@
         $scope.addTask = function () {
             $scope.active_tasks.$add({
                 task_text: $scope.task_text,
-                date: (new Date()).getDate(),
+                dateAdded: (new Date()).toLocaleString(),
+                expDate: new Date(new Date().getTime() + 1*24*60*60*1000).toLocaleString(),
                 priority: $scope.priority
             }).then(function(activeRef) {
                 
@@ -19,11 +20,12 @@
                 $scope.priority = '';
             });
         };
-                
+                        
         $scope.completedTask = function(task) {            
             $scope.inactive_tasks.$add(task);
             $scope.active_tasks.$remove(task);
             $scope.compChecked = true;
+            $scope.ExpChecked = false;
         };
         
         $scope.deleteTask = function(task) {
@@ -31,12 +33,12 @@
         };
 
         $scope.isTaskExpired = function() {
-            $scope.active_tasks.$loaded().then(function(){
+            $scope.active_tasks.$loaded().then(function() {
                 angular.forEach($scope.active_tasks, function(task) {
-                    if (task.date === task.date + 1) {
+                    if (task.expDate === new Date().toLocaleString()) {
                         $scope.inactive_tasks.$add(task);
                         $scope.active_tasks.$remove(task);
-                        $scope.expChecked = true;
+                        $scope.expChecked = true;                        
                     }
                 })
             });
@@ -58,14 +60,13 @@
         $scope.reactivateCompTask = function (task) {
             $scope.active_tasks.$add(task);
             $scope.inactive_tasks.$remove(task);
-            $scope.task.compChecked = false;
+            task.compChecked = false;
         };
         
         $scope.reactivateExpTask = function (task) {
             $scope.inactive_tasks.$add(task);
             $scope.active_tasks.$remove(task);
-        };
-        
+        };        
     }
     
     angular
