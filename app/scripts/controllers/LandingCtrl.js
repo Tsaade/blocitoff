@@ -23,6 +23,7 @@
         $scope.completedTask = function(task) {            
             $scope.inactive_tasks.$add(task);
             $scope.active_tasks.$remove(task);
+            $scope.compChecked = true;
         };
         
         $scope.deleteTask = function(task) {
@@ -35,6 +36,7 @@
                     if (task.date === task.date + 1) {
                         $scope.inactive_tasks.$add(task);
                         $scope.active_tasks.$remove(task);
+                        $scope.expChecked = true;
                     }
                 })
             });
@@ -51,7 +53,19 @@
         $scope.showCurrentTasks = function() {
             $scope.currentTaskList = true;
             $scope.historyTaskList = false;            
-        };        
+        };
+        
+        $scope.reactivateCompTask = function (task) {
+            $scope.active_tasks.$add(task);
+            $scope.inactive_tasks.$remove(task);
+            $scope.task.compChecked = false;
+        };
+        
+        $scope.reactivateExpTask = function (task) {
+            $scope.inactive_tasks.$add(task);
+            $scope.active_tasks.$remove(task);
+        };
+        
     }
     
     angular

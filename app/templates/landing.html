@@ -52,12 +52,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in active_tasks">
+                <tr ng-repeat="task in inactive_tasks">
                     <td width="400">{{ task.task_text }}</td>
                     <td width="50">{{ task.priority }}</td>
                     <td>
-                        <input type="checkbox" ng-click="reactivateTask(task)">Comp.
-                        <input type="checkbox" ng-click="reactivateTask(task)" >Exp.
+                        <input type="checkbox" ng-model="compChecked" ng-click="reactivateCompTask(task)">Comp.
+                        <input type="checkbox" ng-model="expChecked" ng-click="reactivateExpTask(task)" >Exp.
                     </td>
                 </tr>
             </tbody>
