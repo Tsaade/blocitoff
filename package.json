@@ -2,6 +2,7 @@
   "name": "blocitoff",
   "version": "1.0.0",
   "description": "Blocitoff uses the Firebase API and AngularJS to create tasks with an expiration date.",
+  "repository": "https://github.com/Tsaade/blocitoff.git",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

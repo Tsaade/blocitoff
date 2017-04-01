@@ -3,29 +3,44 @@
 
     function LandingCtrl($scope, $firebaseArray) {
         var activeRef = firebase.database().ref().child('active_tasks');
-        var inactiveRef = firebase.database().ref().child('inactive_tasks');
         
         $scope.active_tasks = $firebaseArray(activeRef);
-        $scope.inactive_tasks = $firebaseArray(inactiveRef);
+        
+        $scope.task_text = '';
+        $scope.priority = '';
         
         $scope.addTask = function () {
-            $scope.active_tasks.$add({
-                task_text: $scope.task_text,
-                dateAdded: (new Date()).toLocaleString(),
-                expDate: new Date(new Date().getTime() + 1*24*60*60*1000).toLocaleString(),
-                priority: $scope.priority
-            }).then(function(activeRef) {
-                
-                $scope.task_text = '';
-                $scope.priority = '';
-            });
+            if ($scope.task_text == '' || $scope.priority == '') {
+                alert('Please enter a new task and set its priority.');
+            } else {
+                $scope.active_tasks.$add({
+                    task_text: $scope.task_text,
+                    dateAdded: (new Date()).toLocaleString(),
+                    expDate: new Date(new Date().getTime() + 1*24*60*60*1000).toLocaleString(),
+                    status_active: true,
+                    compChecked: false,
+                    expChecked: false,
+                    priority: $scope.priority
+                }).then(function(activeRef) {
+
+                    $scope.task_text = '';
+                    $scope.priority = '';
+                });
+            }
         };
-                        
-        $scope.completedTask = function(task) {            
-            $scope.inactive_tasks.$add(task);
-            $scope.active_tasks.$remove(task);
-            $scope.compChecked = true;
-            $scope.ExpChecked = false;
+                                
+        $scope.completedTask = function(task) {
+            //console.log("The status of the task is: " + task.status_active);            
+            //console.log("The status of the completed checkbox is: " + task.compChecked);            
+            angular.forEach($scope.active_tasks, function(value, key) {
+                //console.log(value);
+                //console.log(key);
+                if(value.$id == task.$id) {
+                    activeRef.child(task.$id).update({ status_active: false, compChecked: true });
+                    //console.log(task.$id + " " + " " + value.$id);
+                    //console.log(task.status_active + " " + " " + value.status_active);
+                }
+            });
         };
         
         $scope.deleteTask = function(task) {
@@ -35,10 +50,10 @@
         $scope.isTaskExpired = function() {
             $scope.active_tasks.$loaded().then(function() {
                 angular.forEach($scope.active_tasks, function(task) {
-                    if (task.expDate === new Date().toLocaleString()) {
-                        $scope.inactive_tasks.$add(task);
-                        $scope.active_tasks.$remove(task);
-                        $scope.expChecked = true;                        
+                                        
+                    if (task.expDate <= new Date().toLocaleString()) {
+                        task.status_active = false;
+                        task.expChecked = true;                         
                     }
                 })
             });
@@ -58,14 +73,15 @@
         };
         
         $scope.reactivateCompTask = function (task) {
-            $scope.active_tasks.$add(task);
-            $scope.inactive_tasks.$remove(task);
-            task.compChecked = false;
+            angular.forEach($scope.active_tasks, function(value, key) {
+                if(value.$id == task.$id) {
+                    activeRef.child(task.$id).update({ status_active: true, compChecked: false });
+                }
+            });
         };
         
         $scope.reactivateExpTask = function (task) {
-            $scope.inactive_tasks.$add(task);
-            $scope.active_tasks.$remove(task);
+            task.status_active = true;
         };        
     }
     

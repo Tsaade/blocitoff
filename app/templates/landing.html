@@ -16,11 +16,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in active_tasks">
+                <tr ng-repeat="task in active_tasks" ng-show="task.status_active">
                     <td width="400">{{ task.task_text }}</td>
                     <td width="50">{{ task.priority }}</td>
                     <td>
-                        <input type="checkbox" ng-click="completedTask(task)">Comp.
+                        <input type="checkbox" ng-model="task.compChecked" ng-click="completedTask(task)">Comp.
                         <input type="button" ng-click="deleteTask(task)" value="Delete">
                     </td>
                 </tr>
@@ -33,9 +33,9 @@
         <div>
             <input id="task-text" type="text" ng-model="task_text"><br>
             <p class="priority"> Add Priority: </p>
-            <input type="radio" name="priority" value="high" ng-model="priority"><p class="priority"> High</p>
-            <input type="radio" name="priority" value="normal" ng-model="priority"><p class="priority"> Normal</p>
-            <input type="radio" name="priority" value="low" ng-model="priority"><p class="priority"> Low</p><br>
+            <input type="radio" name="priority" value="High" ng-model="priority"><p class="priority"> High</p>
+            <input type="radio" name="priority" value="Normal" ng-model="priority"><p class="priority"> Normal</p>
+            <input type="radio" name="priority" value="Low" ng-model="priority"><p class="priority"> Low</p><br>
             <input class="task-buttons" type="button" value="Show Task History" ng-click="showHistory()">
             <input class="task-buttons" type="button" value="Add Task" ng-click="addTask()">
         </div>
@@ -52,12 +52,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in inactive_tasks">
+                <tr ng-repeat="task in active_tasks" ng-show="!task.status_active">
                     <td width="400">{{ task.task_text }}</td>
                     <td width="50">{{ task.priority }}</td>
                     <td>
-                        <input type="checkbox" ng-model="compChecked" ng-click="reactivateCompTask(task)">Comp.
-                        <input type="checkbox" ng-model="expChecked" ng-click="reactivateExpTask(task)" >Exp.
+                        <input type="checkbox" ng-model="task.compChecked" ng-click="reactivateCompTask(task)">Comp.
+                        <input type="checkbox" ng-model="task.expChecked" ng-click="reactivateExpTask(task)" >Exp.
                     </td>
                 </tr>
             </tbody>
